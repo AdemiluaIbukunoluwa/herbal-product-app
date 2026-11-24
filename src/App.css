@@ -27,17 +27,15 @@
   text-decoration: none;
 }
 
-.brand-mark {
-  display: grid;
-  width: 2rem;
-  height: 2rem;
-  place-items: center;
-  color: #faf8f0;
-  background: #53744c;
-  border-radius: 50% 50% 50% 0;
-  font-size: 1rem;
-  transform: rotate(-12deg);
-}
+  .byo{
+    background-color: #c26c35;
+    color: #fffdf6;
+  }
+
+  .byo:hover {
+    background-color: #fffdf6;
+    color: #c26c35;
+  }
 
 .site-nav {
   display: flex;
@@ -49,7 +47,7 @@
 }
 
 .site-nav a {
-  color: #475647;
+  color: ;
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
@@ -167,7 +165,7 @@
 }
 
 .catalogue {
-  padding: 5rem max(6vw, 1.5rem) 6rem;
+  /* padding: 5rem max(6vw, 1.5rem) 6rem; */
   background: #faf8f0;
 }
 
@@ -357,7 +355,7 @@
   margin: 0;
   color: #294432;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-size: 3rem;
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 1.05;
@@ -482,6 +480,8 @@
     font-size: 0.82rem;
   }
 
+
+
   .hero {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -514,11 +514,6 @@
     font-size: 1.1rem;
   }
 
-  .brand-mark {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-
   .site-nav {
     gap: 0.7rem;
   }
@@ -535,4 +530,29 @@
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+
+#contact{
+  background-color: #385b3d;
+}
+
+#about {
+  border-top: 1px solid #385b3d;
+  color: #385b3d;
+}
+
+#about h2,
+#contact h2 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+.product-tags  span{
+  display: inline-block;
+  background-color: #385b3d;
+  color: #fffdf6;
+  padding: 0.3rem 0.6rem;
+  margin: 0.2rem;
+  font-size: 0.8rem;
 }

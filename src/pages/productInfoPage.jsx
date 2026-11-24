@@ -1,3 +1,5 @@
+import CartLogo from '../assets/cartLogo';
+import QuantityWidget from '../components/quantityWidget';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { getProducts } from '../api/products';
@@ -6,6 +8,8 @@ import { productImage } from '../utils/productImage';
 const ProductPage = () => {
     const { name } = useParams();
     const { state } = useLocation();
+    // Check if the product was passed via state and matches the URL parameter  
+    // If not, it will be looked up from the API based on the name parameter
     const linkedProduct = state?.product?.name === name ? state.product : null;
     const [lookup, setLookup] = useState(null);
     const [quantity, setQuantity] = useState(1);
@@ -13,6 +17,8 @@ const ProductPage = () => {
     const [cartError, setCartError] = useState('');
     const result = lookup?.name === name ? lookup : null;
     const product = linkedProduct || result?.product;
+
+    const {description, price, type, ingredients, tags } = product;
 
     useEffect(() => {
         if (linkedProduct) return;
@@ -54,30 +60,50 @@ const ProductPage = () => {
         );
     }
 
+    
     return (
         <main className="product-page">
             <Link className="back-link" to="/">← Back to shop</Link>
             <div className="product-page-layout">
                 <div className="product-page-image-wrap">
-                    <img className="product-page-image" src={productImage} alt={product.name} />
-                    {product.type && <span className="product-type">{product.type}</span>}
+                    <img className="product-page-image" src={productImage} alt={name} />
+                    {type && <span className="product-type">{type}</span>}
                 </div>
                 <section className="product-page-info">
-                    <p className="eyebrow">A little everyday goodness</p>
-                    <h1>{product.name}</h1>
-                    <p className="product-page-price">${product.price}</p>
-                    <p className="product-page-description">{product.description}</p>
+                    <h1 className="product-page-title">{name}</h1>
+                    <p className="product-page-price">${price}</p>
+                    <p className="product-page-description">{description}</p>
+                    <div className="product-info">
+                        <div>
+                            {
+                                ingredients && (
+                                    <p className="product-ingredients">
+                                        <strong>Ingredients:</strong> {ingredients.join(', ')}
+                                    </p>
+                                )
+                            }
+                        </div>
+                        <div className="product-tags-container p-4">
+                            {/* create little boxes for each tag */}
+                            {
+                                tags && (
+                                    <div className="product-tags">
+                                        {tags.map((tag, index) => (
+                                            <span key={index} className="product-tag rounded-lg mr-2 p-3">{tag}</span>
+                                        ))}
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </div>
                     <div className="product-purchase">
                         <p className="quantity-label" id="quantity-label">Quantity</p>
                         <div className="purchase-controls">
-                            <div className="quantity-control" role="group" aria-labelledby="quantity-label">
-                                <button type="button" aria-label="Decrease quantity" disabled={quantity === 1}
-                                    onClick={() => changeQuantity(-1)}>−</button>
-                                <output aria-live="polite" aria-label="Quantity">{quantity}</output>
-                                <button type="button" aria-label="Increase quantity"
-                                    disabled={quantity === Number.MAX_SAFE_INTEGER}
-                                    onClick={() => changeQuantity(1)}>+</button>
-                            </div>
+                            <QuantityWidget
+                                quantity={quantity}
+                                onIncrease={() => changeQuantity(1)}
+                                onDecrease={() => changeQuantity(-1)}
+                            />
                             <button className="product-add-button" type="button" onClick={addToCart}>
                                 Add to cart
                             </button>

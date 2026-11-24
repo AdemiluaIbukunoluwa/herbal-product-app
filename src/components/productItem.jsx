@@ -3,10 +3,12 @@ import { productImage } from '../utils/productImage';
 
 const ProductItem = ({ product }) => {
 
-    const { name, description, price, type } = product;
+    const { id, name, description, price, type } = product;
     return (
         <Link className="product-card" to={`/product/${encodeURIComponent(name)}`}
         state = {{ product }}
+        key = {{id}}
+        id={id}
         >
             <div className="product-image-wrap">
                 <img src={productImage} alt={name} className="product-image" />
